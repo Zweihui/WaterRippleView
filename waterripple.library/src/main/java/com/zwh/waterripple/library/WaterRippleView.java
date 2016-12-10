@@ -157,7 +157,7 @@ public class WaterRippleView extends View{
         //mFraction = 1 - valueAnimator.getAnimatedFraction();
         //mFraction2 = valueAnimator.getAnimatedFraction();
         mFraction3 =  times + 1 - valueAnimator.getAnimatedFraction();
-        Log.e("mFraction3",mFraction3+"++++"+times);
+        //Log.e("mFraction3",mFraction3+"++++"+times);
         invalidate();
       }
     });
@@ -173,11 +173,11 @@ public class WaterRippleView extends View{
     mPath.moveTo(0,mCenterY);
     mPath2.moveTo(0,mCenterY);
     for (float x = 0; x <= mWidth; x=x+1) {
-      y1 = (float) (mHeight*0.06f *mFraction2* Math.sin(Math.toRadians(90/(mWidth/3)*x+720*mFraction3)))+mHeight*mFraction;
+      y1 = (float) (mHeight*0.06f *(1-Math.abs(mHeight*mFraction-0.5f*mHeight)/(0.5f*mHeight))* Math.sin(Math.toRadians(90/(mWidth/3)*x+720*mFraction3)))+mHeight*mFraction;
       mPath.lineTo(x, y1);
     }
     for (float x = 0; x <= mWidth; x=x+1) {
-      y2 = (float) (mHeight*0.06f *mFraction2* Math.sin(Math.toRadians(90/(mWidth/3)*x+720*mFraction3+180)))+mHeight*mFraction;
+      y2 = (float) (mHeight*0.06f *(1-Math.abs(mHeight*mFraction-0.5f*mHeight)/(0.5f*mHeight))* Math.sin(Math.toRadians(90/(mWidth/3)*x+720*mFraction3+180)))+mHeight*mFraction;
       mPath2.lineTo(x, y2);
     }
     mPath.lineTo(mWidth,mHeight);
@@ -189,7 +189,7 @@ public class WaterRippleView extends View{
   }
   public void setDepthRate(float f){
     depthRate = f;
-    mDuration2 = (int) (4500 * f);
+    mDuration2 = (int) (3000 * f);
   }
 
   public void setBackGroundColor(int color){

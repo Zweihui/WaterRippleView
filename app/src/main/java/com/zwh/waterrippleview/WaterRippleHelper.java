@@ -3,6 +3,7 @@ package com.zwh.waterrippleview;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -13,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.zwh.waterripple.library.WaterRippleView;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.zwh.waterrippleview.R.id.root;
 import static com.zwh.waterrippleview.R.id.wrv;
@@ -28,6 +31,8 @@ public class WaterRippleHelper {
   private Context context;
   private View rootView;
   private int count = 0;
+  private int sum = 0;
+  private int count1 =0;
   public int[] shadowColors ={Color.argb(120,2,199,46),Color.argb(120,228,31,98),Color.argb(120,109,140,198),};
   public int[] frontColors ={Color.argb(255,2,199,46),Color.argb(255,228,31,98),Color.argb(255,109,140,198),};
   int position = 0;
@@ -40,16 +45,18 @@ public class WaterRippleHelper {
   Handler handler = new Handler(){
     @Override public void handleMessage(Message msg) {
       super.handleMessage(msg);
+        //removeMessages(0);
       if (count == 0){
-        waterRippleView.setDepthRate((float)500/1000);
+
+        waterRippleView.setDepthRate((float)count1/sum);
         waterRippleView.startRefresh();
         waterRippleView.startRefresh2();
       }
-      if(count<500){
+      if(count<count1){
         count+=3;
         handler.sendEmptyMessage(0);
-      }else if(count>500) {
-        count=500;
+      }else if(count>count1) {
+        count=count1;
       }
       tv.setText(count+"");
     }
@@ -59,7 +66,9 @@ public class WaterRippleHelper {
   * root 根布局
   * tag 点击控件的tag
   */
-  public void showEvent(final ViewGroup root, final String tag){
+  public void showEvent(final ViewGroup root, final String tag,int count1,int sum){
+    this.count1 = count1;
+    this.sum = sum;
     if((root.findViewWithTag(tag+"ripple")==null)) {
       seColors();
       rootView.setTag(tag+"ripple");

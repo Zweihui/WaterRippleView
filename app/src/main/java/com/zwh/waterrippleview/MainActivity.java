@@ -34,23 +34,28 @@ public class MainActivity extends AppCompatActivity {
     root = (RelativeLayout) findViewById(R.id.root);
     btn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        clickEvent(btn.getTag().toString());
+        WaterRippleHelper helper = new WaterRippleHelper(MainActivity.this);
+        helper.showEvent(root, btn.getTag().toString(),1000,1000);
       }
     });
     btn1.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        clickEvent(btn1.getTag().toString());
+        WaterRippleHelper helper = new WaterRippleHelper(MainActivity.this);
+        helper.showEvent(root, btn1.getTag().toString(),800,1000);
       }
     });
     btn2.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        clickEvent(btn2.getTag().toString());
+        WaterRippleHelper helper = new WaterRippleHelper(MainActivity.this);
+        helper.showEvent(root, btn2.getTag().toString(),500,1000);
       }
     });
   }
-  public void clickEvent(String tag){
-    WaterRippleHelper helper = new WaterRippleHelper(this);
-    helper.showEvent(root, tag);
-  }
 
+  //Handler handler = new Handler(){
+  //  @Override public void handleMessage(Message msg) {
+  //    super.handleMessage(msg);
+  //
+  //  }
+  //};
 }
